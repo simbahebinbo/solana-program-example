@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 use {
     assert_matches::*,
@@ -16,9 +16,12 @@ fn test_validator_transaction() {
     let program_id = Pubkey::new_unique();
 
     let (test_validator, payer) = TestValidatorGenesis::default()
-        .add_program("bpf_program_template", program_id)
+        .add_program("sbf_program_template", program_id)
         .start();
-    let (rpc_client, recent_blockhash, _fee_calculator) = test_validator.rpc_client();
+    let rpc_client = test_validator.get_rpc_client();
+    let recent_blockhash = rpc_client
+        .get_latest_blockhash()
+        .expect("get_latest_blockhash");
 
     let mut transaction = Transaction::new_with_payer(
         &[Instruction {

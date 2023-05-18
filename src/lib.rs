@@ -1,5 +1,5 @@
 use solana_program::{
-    account_info::{next_account_info, AccountInfo},
+    account_info::{AccountInfo, next_account_info},
     entrypoint,
     entrypoint::ProgramResult,
     msg,
@@ -35,7 +35,6 @@ fn process_instruction(
 #[cfg(test)]
 mod test {
     use {
-        super::*,
         assert_matches::*,
         solana_program::{
             instruction::{AccountMeta, Instruction},
@@ -43,6 +42,7 @@ mod test {
         },
         solana_program_test::*,
         solana_sdk::{signature::Signer, transaction::Transaction},
+        super::*,
     };
 
     #[tokio::test]
@@ -50,12 +50,12 @@ mod test {
         let program_id = Pubkey::new_unique();
 
         let (mut banks_client, payer, recent_blockhash) = ProgramTest::new(
-            "bpf_program_template",
+            "sbf_program_template",
             program_id,
             processor!(process_instruction),
         )
-        .start()
-        .await;
+            .start()
+            .await;
 
         let mut transaction = Transaction::new_with_payer(
             &[Instruction {
