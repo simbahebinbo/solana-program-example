@@ -1,5 +1,7 @@
+use std::convert::TryInto;
+
 use solana_program::{
-    account_info::{next_account_info, AccountInfo},
+    account_info::{AccountInfo, next_account_info},
     clock::Clock,
     entrypoint,
     entrypoint::ProgramResult,
@@ -11,7 +13,6 @@ use solana_program::{
     system_instruction,
     sysvar::Sysvar,
 };
-use std::convert::TryInto;
 
 entrypoint!(process_instruction);
 
@@ -20,7 +21,7 @@ pub fn process_instruction(
     accounts: &[AccountInfo],
     _instruction_data: &[u8],
 ) -> ProgramResult {
-    msg!("Hello !");
+    msg!("Hello!");
 
     let account_info_iter = &mut accounts.iter();
 
