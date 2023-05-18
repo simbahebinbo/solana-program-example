@@ -1,7 +1,7 @@
 ### Environment Setup
 
 1. Get Rust from https://rustup.rs/
-2. Install the Solana command-line tools
+2. Install the Solana 1.14.6 command-line tools
    from https://docs.solana.com/cli/install-solana-cli-tools#use-solanas-install-tool
 
 ```
