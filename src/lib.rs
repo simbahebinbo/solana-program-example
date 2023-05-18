@@ -1,16 +1,4 @@
-use solana_program::{
-    account_info::{next_account_info, AccountInfo},
-    entrypoint,
-    entrypoint::ProgramResult,
-    info,
-    program::{invoke, invoke_signed},
-    program_error::ProgramError,
-    program_pack::Pack,
-    pubkey::Pubkey,
-    rent::Rent,
-    system_instruction,
-    sysvar::Sysvar,
-};
+use solana_program::{account_info::{next_account_info, AccountInfo}, entrypoint, entrypoint::ProgramResult, info, msg, program::{invoke, invoke_signed}, program_error::ProgramError, program_pack::Pack, pubkey::Pubkey, rent::Rent, system_instruction, sysvar::Sysvar};
 
 entrypoint!(process_instruction);
 fn process_instruction(
@@ -18,7 +6,7 @@ fn process_instruction(
     accounts: &[AccountInfo],
     instruction_data: &[u8],
 ) -> ProgramResult {
-    info!(&format!(
+    msg!(&format!(
         "process_instruction: {}: {} accounts, data={:?}",
         program_id,
         accounts.len(),
@@ -31,7 +19,7 @@ fn process_instruction(
         Pubkey::find_program_address(&[br"program-token"], program_id);
 
     if program_token_address != *program_token_info.key {
-        info!("Error: program token address derivation mismatch");
+        msg!("Error: program token address derivation mismatch");
         return Err(ProgramError::InvalidArgument);
     }
 
@@ -39,7 +27,7 @@ fn process_instruction(
 
     match instruction_data.get(0) {
         Some(0) => {
-            info!("Create program token account...");
+            msg!("Create program token account...");
             let funder_info = next_account_info(account_info_iter)?;
             let mint_info = next_account_info(account_info_iter)?;
             let system_program_info = next_account_info(account_info_iter)?;
@@ -64,7 +52,7 @@ fn process_instruction(
                 &[&program_token_signer_seeds],
             )?;
 
-            info!("Initializing program token account");
+            msg!("Initializing program token account");
             invoke(
                 &spl_token::instruction::initialize_account(
                     &spl_token::id(),
@@ -82,7 +70,7 @@ fn process_instruction(
             Ok(())
         }
         Some(1) => {
-            info!("Close program token account...");
+            msg!("Close program token account...");
             let funder_info = next_account_info(account_info_iter)?;
             let spl_token_program_info = next_account_info(account_info_iter)?;
 
@@ -104,7 +92,7 @@ fn process_instruction(
             )
         }
         _ => {
-            info!("Error: Unsupported instruction");
+            msg!("Error: Unsupported instruction");
             Err(ProgramError::InvalidInstructionData)
         }
     }
@@ -112,7 +100,7 @@ fn process_instruction(
 
 #[cfg(test)]
 mod test {
-    #![cfg(feature = "test-bpf")]
+    #![cfg(feature = "test-sbf")]
 
     use super::*;
     use assert_matches::*;
@@ -125,7 +113,7 @@ mod test {
 
     fn program_test(program_id: Pubkey) -> ProgramTest {
         let mut pc = ProgramTest::new(
-            "bpf_program_template",
+            "program_template",
             program_id,
             processor!(process_instruction),
         );
