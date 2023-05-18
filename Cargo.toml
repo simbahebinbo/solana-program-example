@@ -1,12 +1,12 @@
 [package]
-name = "sbf-program-template"
+name = "program-template"
 version = "0.1.0"
 edition = "2021"
 license = "WTFPL"
 
 [dependencies]
 solana-program = "=1.14.6"
-spl-token = { version = "3.5.0", features  = ["no-entrypoint"] }
+spl-token = { version = "3.5.0", features = ["no-entrypoint"] }
 
 [dev-dependencies]
 assert_matches = "1.4.0"
