@@ -1,5 +1,5 @@
 [package]
-name = "sbf-program-template"
+name = "program-template"
 version = "0.1.0"
 edition = "2021"
 license = "WTFPL"
@@ -12,7 +12,7 @@ solana-program = "=1.14.6"
 test-sbf = []
 
 [dev-dependencies]
-assert_matches = "1.4.0"
+assert_matches = "1.5.0"
 solana-program-test = "=1.14.6"
 solana-sdk = "=1.14.6"
 solana-validator = "=1.14.6"
