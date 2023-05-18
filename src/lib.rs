@@ -1,4 +1,4 @@
-use solana_program::{account_info::{next_account_info, AccountInfo}, entrypoint, entrypoint::ProgramResult, info, msg, program::{invoke, invoke_signed}, program_error::ProgramError, program_pack::Pack, pubkey::Pubkey, rent::Rent, system_instruction, sysvar::Sysvar};
+use solana_program::{account_info::{AccountInfo, next_account_info}, entrypoint, entrypoint::ProgramResult, info, msg, program::{invoke, invoke_signed}, program_error::ProgramError, program_pack::Pack, pubkey::Pubkey, rent::Rent, system_instruction, sysvar::Sysvar};
 
 entrypoint!(process_instruction);
 fn process_instruction(
@@ -82,7 +82,7 @@ fn process_instruction(
                     program_token_info.key, // token owner is also `program_token` address
                     &[],
                 )
-                .expect("close_account"),
+                    .expect("close_account"),
                 &[
                     funder_info.clone(),
                     spl_token_program_info.clone(),
@@ -102,7 +102,6 @@ fn process_instruction(
 mod test {
     #![cfg(feature = "test-sbf")]
 
-    use super::*;
     use assert_matches::*;
     use solana_program::{
         instruction::{AccountMeta, Instruction},
@@ -110,6 +109,8 @@ mod test {
     };
     use solana_program_test::*;
     use solana_sdk::{signature::Signer, transaction::Transaction};
+
+    use super::*;
 
     fn program_test(program_id: Pubkey) -> ProgramTest {
         let mut pc = ProgramTest::new(
