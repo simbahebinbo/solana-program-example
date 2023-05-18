@@ -1,5 +1,7 @@
+use std::convert::TryInto;
+
 use solana_program::{
-    account_info::{next_account_info, AccountInfo},
+    account_info::{AccountInfo, next_account_info},
     entrypoint,
     entrypoint::ProgramResult,
     hash::Hash,
@@ -8,7 +10,6 @@ use solana_program::{
     pubkey::Pubkey,
     sysvar,
 };
-use std::convert::TryInto;
 
 entrypoint!(process_instruction);
 fn process_instruction(
@@ -55,7 +56,6 @@ fn process_instruction(
 #[cfg(test)]
 mod test {
     use {
-        super::*,
         assert_matches::*,
         solana_program::{
             instruction::{AccountMeta, Instruction},
@@ -64,6 +64,7 @@ mod test {
         },
         solana_program_test::*,
         solana_sdk::{signature::Signer, transaction::Transaction},
+        super::*,
     };
 
     #[tokio::test]
