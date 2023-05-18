@@ -1,6 +1,4 @@
-use solana_program::{
-    account_info::AccountInfo, entrypoint, entrypoint::ProgramResult, info, pubkey::Pubkey,
-};
+use solana_program::{account_info::AccountInfo, entrypoint, entrypoint::ProgramResult,  msg, pubkey::Pubkey};
 
 entrypoint!(process_instruction);
 fn process_instruction(
@@ -8,7 +6,7 @@ fn process_instruction(
     accounts: &[AccountInfo],
     instruction_data: &[u8],
 ) -> ProgramResult {
-    info!(&format!(
+    msg!(&format!(
         "process_instruction: {}: {} accounts, data={:?} with spl-token {}",
         program_id,
         accounts.len(),
@@ -31,7 +29,7 @@ mod test {
         let program_id = Pubkey::new_unique();
 
         let (mut banks_client, payer, recent_blockhash) =
-            ProgramTest::new("bpf_program_template", program_id, processor!(process_instruction))
+            ProgramTest::new("sbf_program_template", program_id, processor!(process_instruction))
                 .start()
                 .await;
 
