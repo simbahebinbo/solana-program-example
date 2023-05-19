@@ -100,8 +100,6 @@ fn process_instruction(
 
 #[cfg(test)]
 mod test {
-    #![cfg(feature = "test-sbf")]
-
     use assert_matches::*;
     use solana_program::{
         instruction::{AccountMeta, Instruction},
