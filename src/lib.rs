@@ -72,7 +72,7 @@ mod test {
         let program_id = Pubkey::new_unique();
 
         let mut program_test = ProgramTest::new(
-            "bpf_program_template",
+            "program_template",
             program_id,
             processor!(process_instruction),
         );
